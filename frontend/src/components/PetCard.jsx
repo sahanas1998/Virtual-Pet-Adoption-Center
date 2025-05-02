@@ -5,7 +5,7 @@ import UpdateForm from "./UpdateForm";
 import DeleteForm from "./DeleteForm";
 import { MdClose } from "react-icons/md";
 
-function PetCard({ name, id, age, personality, space, img, isAdpote }) {
+function PetCard({ name, id, age, personality, species, img, isAdpote, mood }) {
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);
   const [isDeleteFormOpen, setIsDeleteFormOpen] = useState(false);
   return (
@@ -34,7 +34,7 @@ function PetCard({ name, id, age, personality, space, img, isAdpote }) {
               <p>{name}</p>
 
               <p className="font-semibold">Species :</p>
-              <p>{space}</p>
+              <p>{species}</p>
 
               <p className="font-semibold">Age :</p>
               <p>{age}</p>
@@ -43,18 +43,31 @@ function PetCard({ name, id, age, personality, space, img, isAdpote }) {
               <p>{personality}</p>
             </div>
 
-            <div className="flex gap-[12px] items-end justify-end">
+            <div className="flex justify-between items-center">
               <div
-                className="bg-[#87d2f8] rounded p-2 text-[20px] text-black"
-                onClick={() => setIsUpdateFormOpen(true)}
+                className={`rounded text-white font-bold py-2 px-2 text-sm ${
+                  mood === "Happy"
+                    ? "bg-[#0f4b0f]"
+                    : mood === "Excited"
+                    ? "bg-[#8c941a]"
+                    : "bg-[#520f0f]"
+                }`}
               >
-                <BiEditAlt />
+                {mood}
               </div>
-              <div
-                className="bg-[#b91d1d] rounded p-2 text-[20px] text-black"
-                onClick={() => setIsDeleteFormOpen(true)}
-              >
-                <RiDeleteBin6Line />
+              <div className="flex gap-[12px] items-end justify-end">
+                <div
+                  className="bg-[#87d2f8] rounded p-2 text-[20px] text-black"
+                  onClick={() => setIsUpdateFormOpen(true)}
+                >
+                  <BiEditAlt />
+                </div>
+                <div
+                  className="bg-[#b91d1d] rounded p-2 text-[20px] text-black"
+                  onClick={() => setIsDeleteFormOpen(true)}
+                >
+                  <RiDeleteBin6Line />
+                </div>
               </div>
             </div>
           </div>

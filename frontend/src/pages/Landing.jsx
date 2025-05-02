@@ -1,82 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PetCard from "../components/PetCard";
-
-const pets = [
-  {
-    id: "1045",
-    name: "Roxcy",
-    age: "4",
-    personality: "shy",
-    space: "Dog",
-    isAdpote: true,
-    img: "https://hips.hearstapps.com/hmg-prod/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*",
-  },
-  {
-    id: "1046",
-    name: "Milo",
-    age: "2",
-    personality: "friendly",
-    space: "Cat",
-    isAdpote: false,
-    img: "https://images.ctfassets.net/82d3r48zq721/4NdNVD9eB6QBWaSvzagFP1/7cf96a73d3edcff9211534cd05cb209b/Indoor-cat-lying-on-couch_resized.jpg?w=800&q=50",
-  },
-  {
-    id: "1045",
-    name: "Roxcy",
-    age: "4",
-    personality: "shy",
-    space: "Dog",
-    isAdpote: true,
-    img: "https://hips.hearstapps.com/hmg-prod/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*",
-  },
-  {
-    id: "1046",
-    name: "Milo",
-    age: "2",
-    personality: "friendly",
-    space: "Cat",
-    isAdpote: false,
-    img: "https://images.ctfassets.net/82d3r48zq721/4NdNVD9eB6QBWaSvzagFP1/7cf96a73d3edcff9211534cd05cb209b/Indoor-cat-lying-on-couch_resized.jpg?w=800&q=50",
-  },
-  {
-    id: "1045",
-    name: "Roxcy",
-    age: "4",
-    personality: "shy",
-    space: "Dog",
-    isAdpote: true,
-    img: "https://hips.hearstapps.com/hmg-prod/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*",
-  },
-  {
-    id: "1046",
-    name: "Milo",
-    age: "2",
-    personality: "friendly",
-    space: "Cat",
-    isAdpote: false,
-    img: "https://images.ctfassets.net/82d3r48zq721/4NdNVD9eB6QBWaSvzagFP1/7cf96a73d3edcff9211534cd05cb209b/Indoor-cat-lying-on-couch_resized.jpg?w=800&q=50",
-  },
-  {
-    id: "1045",
-    name: "Roxcy",
-    age: "4",
-    personality: "shy",
-    space: "Dog",
-    isAdpote: true,
-    img: "https://hips.hearstapps.com/hmg-prod/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*",
-  },
-  {
-    id: "1046",
-    name: "Milo",
-    age: "2",
-    personality: "friendly",
-    space: "Cat",
-    isAdpote: false,
-    img: "https://images.ctfassets.net/82d3r48zq721/4NdNVD9eB6QBWaSvzagFP1/7cf96a73d3edcff9211534cd05cb209b/Indoor-cat-lying-on-couch_resized.jpg?w=800&q=50",
-  },
-];
+import { getPets } from "../services/api"; // import from your API file
 
 function Landing() {
+  const [pets, setPets] = useState([]);
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const response = await getPets();
+        setPets(response.data);
+      } catch (error) {
+        console.error("Error fetching pets:", error);
+      }
+    };
+
+    fetchPets();
+  }, []);
+
   return (
     <div className="py-[40px] lg:px-[24px] px-[16px] bg-black text-white">
       <div className="container mx-auto">
@@ -85,16 +26,17 @@ function Landing() {
             <h3>Pets Details</h3>
           </div>
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[24px]">
-            {pets.map((pet, index) => (
+            {pets.map((pet) => (
               <PetCard
-                key={index}
-                id={pet.id}
+                key={pet._id || pet.id}
+                id={pet._id}
                 name={pet.name}
                 age={pet.age}
                 personality={pet.personality}
-                space={pet.space}
-                isAdpote={pet.isAdpote}
-                img={pet.img}
+                species={pet.species}
+                isAdpote={pet.adopted}
+                img={`http://localhost:5000/uploads/${pet.image}`}
+                mood={pet.mood}
               />
             ))}
           </div>
