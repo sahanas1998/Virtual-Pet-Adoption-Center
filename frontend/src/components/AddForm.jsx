@@ -9,7 +9,6 @@ function AddForm({ onClose }) {
     personality: "",
     adopted: false,
     image: null,
-    mood: "",
     adoption_date: Date,
   });
 
@@ -22,21 +21,9 @@ function AddForm({ onClose }) {
     if (!formData.species) errs.species = "Species is required";
     if (!formData.age) errs.age = "Age is required";
     if (!formData.personality) errs.personality = "Personality is required";
-    if (!formData.mood) errs.mood = "Mood is required";
     if (!formData.adoption_date) errs.adoption_date = "Select the adopted date";
     return errs;
   };
-
-  //  const handleSubmit = (e) => {
-  //    e.preventDefault();
-  //    const errs = validate();
-  //    if (Object.keys(errs).length > 0) {
-  //      setErrors(errs);
-  //    } else {
-  //      console.log(formData);
-  //      onClose(); // Close form after successful submit
-  //    }
-  //  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +40,6 @@ function AddForm({ onClose }) {
       petData.append("species", formData.species);
       petData.append("age", formData.age);
       petData.append("personality", formData.personality);
-      petData.append("mood", formData.mood);
       petData.append("adopted", formData.adopted);
       if (formData.adopted && formData.adoption_date) {
         petData.append("adoption_date", formData.adoption_date);
@@ -167,25 +153,6 @@ function AddForm({ onClose }) {
           {errors.personality && (
             <p className="text-red-600 text-sm">{errors.personality}</p>
           )}
-        </div>
-
-        {/* Mood */}
-        <div className="flex flex-col  md:gap-[10px] gap-[8px]">
-          <label className="md:text-[20px] text-[14px] font-semibold">
-            Pet Mood
-          </label>
-          <select
-            name="mood"
-            value={formData.mood}
-            onChange={handleChange}
-            className="border rounded border-black  md:py-4 py-1"
-          >
-            <option value="">Select</option>
-            <option>Happy</option>
-            <option>Sad</option>
-            <option>Excited</option>
-          </select>
-          {errors.mood && <p className="text-red-600 text-sm">{errors.mood}</p>}
         </div>
 
         {/* Adopted (Boolean) */}

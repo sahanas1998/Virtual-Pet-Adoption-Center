@@ -22,9 +22,26 @@ exports.getPet = async (req, res) => {
 };
 
 exports.updatePet = async (req, res) => {
-  const updated = await PetService.updatePet(req.params.id, req.body);
-  res.json(updated);
+  try {
+    const { id } = req.params;
+    const updateData = { ...req.body };
+
+    // If an image is uploaded, include it in the update
+    if (req.file) {
+      updateData.imagePath = req.file.path;
+    }
+
+    const updated = await PetService.updatePet(id, updateData);
+    res.status(200).json(updated);
+  } catch (error) {
+    console.error("Error updating pet:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to update pet", error: error.message });
+  }
 };
+
+
 
 exports.adoptPet = async (req, res) => {
   const adopted = await PetService.adoptPet(req.params.id);
@@ -37,7 +54,7 @@ exports.deletePet = async (req, res) => {
 };
 
 exports.filterByMood = async (req, res) => {
-  const pets = await petService.filterByMood(req.query.mood);
+  const pets = await PetService.filterByMood(req.query.mood);
   res.json(pets);
 };
 

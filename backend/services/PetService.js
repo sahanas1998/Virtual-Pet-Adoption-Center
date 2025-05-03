@@ -22,8 +22,11 @@ exports.getPetById = async (id) => {
   return { ...pet.toObject(), mood: getMood(pet.createdAt) };
 };
 
-exports.updatePet = async (id, data) =>
-  await Pet.findByIdAndUpdate(id, data, { new: true });
+exports.updatePet = async (id, data) => {
+  return await Pet.findByIdAndUpdate(id, data, { new: true });
+};
+
+
 
 exports.adoptPet = async (id) =>
   await Pet.findByIdAndUpdate(

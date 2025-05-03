@@ -17,7 +17,7 @@ console.log("Received pet creation request");
 // other routes...
 router.get("/", PetController.getAllPets);
 router.get("/:id", PetController.getPet);
-router.put("/:id", PetController.updatePet);
+router.put("/:id", upload.single("image"), PetController.updatePet);
 router.patch("/:id/adopt", PetController.adoptPet);
 router.delete("/:id", PetController.deletePet);
 

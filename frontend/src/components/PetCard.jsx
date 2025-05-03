@@ -27,8 +27,8 @@ function PetCard({ name, id, age, personality, species, img, isAdpote, mood }) {
 
           <div className="p-[20px] flex flex-col gap-[12px]">
             <div className="grid grid-cols-2 gap-y-1/2 md:text-[18px] text-[14px] font-mono">
-              <p className="font-semibold">Reg No :</p>
-              <p>{id}</p>
+              {/* <p className="font-semibold">Reg No :</p>
+              <p>{id}</p> */}
 
               <p className="font-semibold">Name :</p>
               <p>{name}</p>
@@ -84,7 +84,7 @@ function PetCard({ name, id, age, personality, species, img, isAdpote, mood }) {
               >
                 <MdClose />
               </button>
-              <UpdateForm onClose={() => setIsUpdateFormOpen(false)} />
+              <UpdateForm onClose={() => setIsUpdateFormOpen(false)} petId={id} />
             </div>
           </div>
         </div>
@@ -100,7 +100,10 @@ function PetCard({ name, id, age, personality, species, img, isAdpote, mood }) {
               >
                 <MdClose />
               </button>
-              <DeleteForm onClose={() => setIsDeleteFormOpen(false)} />
+              <DeleteForm
+                onClose={() => setIsDeleteFormOpen(false)}
+                petId={id}
+              />
             </div>
           </div>
         </div>

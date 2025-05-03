@@ -3,8 +3,13 @@ import { Logo } from "../constants/Data";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 import { IoLogoFacebook } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function Footer() {
+
+  const goToUp = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <>
       <div className="bg-black text-[#FF5500] py-[18px] md:px-[24px] px-[16px] border-b border-[#FF5500]">
@@ -39,8 +44,12 @@ function Footer() {
           <div className="flex md:flex-row flex-col gap-[8px]  items-center justify-between md:text-[20px] text-[14px]">
             <h1>@Virtual Pet Adoption Center - 2025</h1>
             <div className="flex md:gap-[24px] gap-[8px] underline ">
-              <h2>Term & Conditions</h2>
-              <h2>Privacy & Policy</h2>
+              <Link to="/termandcondition" onClick={goToUp}>
+                Term & Conditions
+              </Link>
+              <Link to="/privacyandpolicy" onClick={goToUp}>
+                Privacy & Policy
+              </Link>
             </div>
           </div>
         </div>

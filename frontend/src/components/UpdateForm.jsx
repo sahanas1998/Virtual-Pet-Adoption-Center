@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { getPet, updatePet } from "../services/api";
 
-function UpdateForm({ onClose }) {
+function UpdateForm({ onClose, petId }) {
   const [formData, setFormData] = useState({
     name: "",
     species: "",
@@ -8,12 +9,36 @@ function UpdateForm({ onClose }) {
     personality: "",
     adopted: false,
     image: null,
-    mood: "",
     adoption_date: Date,
   });
 
   const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const res = await getPet(petId); // Make sure this function exists
+        const pet = res.data;
+
+        setFormData({
+          name: pet.name || "",
+          species: pet.species || "",
+          age: pet.age || "",
+          personality: pet.personality || "",
+          adopted: pet.adopted || false,
+          adoption_date: pet.adoption_date || "",
+          image: null, // image upload is handled separately
+        });
+      } catch (err) {
+        console.error("Error fetching pet:", err);
+      }
+    };
+
+    if (petId) {
+      fetchPet();
+    }
+  }, [petId]);
 
   const validate = () => {
     const errs = {};
@@ -21,21 +46,48 @@ function UpdateForm({ onClose }) {
     if (!formData.species) errs.species = "Species is required";
     if (!formData.age) errs.age = "Age is required";
     if (!formData.personality) errs.personality = "Personality is required";
-    if (!formData.mood) errs.mood = "Mood is required";
-    if (!formData.adoption_date) errs.adoption_date = "Select the adopted date";
     return errs;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-    } else {
-      console.log(formData);
-      onClose(); // Close form after successful submit
-    }
-  };
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+     const errs = validate();
+     if (Object.keys(errs).length > 0) {
+       setErrors(errs);
+       return;
+     }
+
+     const form = new FormData();
+     for (let key in formData) {
+       if (formData[key] !== null) {
+         form.append(key, formData[key]);
+       }
+     }
+
+     try {
+           // Prepare data for backend
+           const petData = new FormData();
+           petData.append("name", formData.name);
+           petData.append("species", formData.species);
+           petData.append("age", formData.age);
+           petData.append("personality", formData.personality);
+           petData.append("mood", formData.mood);
+           petData.append("adopted", formData.adopted);
+           if (formData.adopted && formData.adoption_date) {
+             petData.append("adoption_date", formData.adoption_date);
+           }
+           if (formData.image) {
+             petData.append("image", formData.image);
+           }
+     
+           const response = await updatePet(petId, petData);
+           console.log("Pet created successfully:", response.data);
+           onClose(); // Close form on success
+         } catch (error) {
+           console.error("Error creating pet:", error);
+           alert("Something went wrong while submitting the form.");
+         }
+   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -135,25 +187,6 @@ function UpdateForm({ onClose }) {
           )}
         </div>
 
-        {/* Mood */}
-        <div className="flex flex-col  md:gap-[10px] gap-[8px]">
-          <label className="md:text-[20px] text-[14px] font-semibold">
-            Pet Mood
-          </label>
-          <select
-            name="mood"
-            value={formData.mood}
-            onChange={handleChange}
-            className="border rounded border-black  md:py-4 py-1"
-          >
-            <option value="">Select</option>
-            <option>Happy</option>
-            <option>Sad</option>
-            <option>Excited</option>
-          </select>
-          {errors.mood && <p className="text-red-600 text-sm">{errors.mood}</p>}
-        </div>
-
         {/* Adopted (Boolean) */}
         <div className="flex flex-col md:gap-[10px] gap-[8px]">
           <label className="md:text-[20px] text-[14px] font-semibold">
@@ -190,9 +223,9 @@ function UpdateForm({ onClose }) {
                 }
                 className="border rounded border-black md:py-3 py-1 px-2"
               />
-              {errors.adoption_date && (
+              {/* {errors.adoption_date && (
                 <p className="text-red-600 text-sm">{errors.adoption_date}</p>
-              )}
+              )} */}
             </div>
           )}
         </div>
