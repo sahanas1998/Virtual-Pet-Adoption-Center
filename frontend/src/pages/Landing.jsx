@@ -33,7 +33,7 @@ function Landing() {
           <div className="flex justify-between items-center">
             <h3 className="text-[32px] font-bold">Pets Details</h3>
             <select
-              className="border border-[#FF5500] text-[#FF5500] rounded bg-black p-4 w-[300px]"
+              className="border border-[#FF5500] text-[#FF5500] rounded bg-black p-4 w-[300px] focus:border-[#FF5500] focus:outline-none active:border-[#FF5500]"
               value={selectedMood}
               onChange={(e) => setSelectedMood(e.target.value)}
             >
