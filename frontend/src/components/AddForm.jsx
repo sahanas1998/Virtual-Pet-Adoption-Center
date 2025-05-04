@@ -50,6 +50,7 @@ function AddForm({ onClose }) {
 
       const response = await createPet(petData);
       console.log("Pet created successfully:", response.data);
+      window.location.reload();
       onClose(); // Close form on success
     } catch (error) {
       console.error("Error creating pet:", error);

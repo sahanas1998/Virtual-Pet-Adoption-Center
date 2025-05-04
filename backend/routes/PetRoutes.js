@@ -12,13 +12,9 @@ const upload = multer({ storage });
 
 // Use multer middleware in POST route
 router.post("/", upload.single("image"), PetController.createPet);
-console.log("Received pet creation request");
-
-// other routes...
 router.get("/", PetController.getAllPets);
 router.get("/:id", PetController.getPet);
 router.put("/:id", upload.single("image"), PetController.updatePet);
-router.patch("/:id/adopt", PetController.adoptPet);
 router.delete("/:id", PetController.deletePet);
 
 module.exports = router;

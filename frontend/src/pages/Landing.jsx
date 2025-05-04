@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PetCard from "../components/PetCard";
 import { getPets } from "../services/api";
-import ViewPet from "../components/ViewPet";
 
 function Landing() {
   const [pets, setPets] = useState([]);

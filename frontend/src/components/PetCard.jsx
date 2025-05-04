@@ -41,20 +41,7 @@ function PetCard({
 
             <div className="p-[20px] flex flex-col gap-[12px]">
               <div className="grid grid-cols-2 gap-y-1/2 md:text-[28px] text-[20px] font-mono">
-                {/* <p className="font-semibold">Reg No :</p>
-              <p>{id}</p> */}
-
-                {/* <p className="font-semibold">Name :</p> */}
                 <p>{name}</p>
-
-                {/* <p className="font-semibold">Species :</p>
-                <p>{species}</p> */}
-
-                {/* <p className="font-semibold">Age :</p>
-                <p>{age}</p> */}
-
-                {/* <p className="font-semibold">Personality :</p>
-                <p>{personality}</p> */}
               </div>
 
               <div className="flex justify-between items-center">
@@ -90,7 +77,7 @@ function PetCard({
       </div>
 
       {isUpdateFormOpen && (
-        <div className="absolute top-0 left-0 w-full bg-black bg-opacity-50 z-50 py-10">
+        <div className="fixed top-0 left-0 w-full bg-black bg-opacity-50 z-50 py-10">
           <div className="container mx-auto">
             <div className="bg-white p-6 rounded-lg max-w-lg w-full mx-auto relative">
               <button
@@ -99,24 +86,8 @@ function PetCard({
               >
                 <MdClose />
               </button>
-              <UpdateForm onClose={() => setIsUpdateFormOpen(false)} petId={id} />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isDeleteFormOpen && (
-        <div className="absolute top-0 left-0 w-full bg-black bg-opacity-50 z-50 py-10">
-          <div className="container mx-auto">
-            <div className="bg-white p-6 rounded-lg max-w-lg w-full mx-auto relative">
-              <button
-                onClick={() => setIsDeleteFormOpen(false)}
-                className="absolute top-4 right-4 text-black text-[32px] font-bold"
-              >
-                <MdClose />
-              </button>
-              <DeleteForm
-                onClose={() => setIsDeleteFormOpen(false)}
+              <UpdateForm
+                onClose={() => setIsUpdateFormOpen(false)}
                 petId={id}
               />
             </div>
@@ -124,29 +95,41 @@ function PetCard({
         </div>
       )}
 
+      {isDeleteFormOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg max-w-lg w-full relative">
+            <button
+              onClick={() => setIsDeleteFormOpen(false)}
+              className="absolute top-4 right-4 text-black text-[32px] font-bold"
+            >
+              <MdClose />
+            </button>
+            <DeleteForm onClose={() => setIsDeleteFormOpen(false)} petId={id} />
+          </div>
+        </div>
+      )}
+
       {viewPet && (
-        <div className="absolute top-0 left-0 w-full bg-black bg-opacity-50 z-50 py-10">
-          <div className="container mx-auto">
-            <div className="bg-white p-12 rounded-lg max-w-lg w-full mx-auto relative">
-              <button
-                onClick={() => setViewPet(false)}
-                className="absolute top-4 right-4 text-black text-[32px] font-bold"
-              >
-                <MdClose />
-              </button>
-              <ViewPet
-                onClose={() => setViewPet(false)}
-                name={name}
-                id={id}
-                age={age}
-                personality={personality}
-                species={species}
-                img={img}
-                isAdpote={isAdpote}
-                mood={mood}
-                adoptedDate={adoptedDate}
-              />
-            </div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white p-12 rounded-lg max-w-lg w-full relative">
+            <button
+              onClick={() => setViewPet(false)}
+              className="absolute top-4 right-4 text-black text-[32px] font-bold"
+            >
+              <MdClose />
+            </button>
+            <ViewPet
+              onClose={() => setViewPet(false)}
+              name={name}
+              id={id}
+              age={age}
+              personality={personality}
+              species={species}
+              img={img}
+              isAdpote={isAdpote}
+              mood={mood}
+              adoptedDate={adoptedDate}
+            />
           </div>
         </div>
       )}

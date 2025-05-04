@@ -26,20 +26,4 @@ exports.updatePet = async (id, data) => {
   return await Pet.findByIdAndUpdate(id, data, { new: true });
 };
 
-
-
-exports.adoptPet = async (id) =>
-  await Pet.findByIdAndUpdate(
-    id,
-    { adopted: true, adoption_date: new Date() },
-    { new: true }
-  );
-
 exports.deletePet = async (id) => await Pet.findByIdAndDelete(id);
-
-exports.filterByMood = async (mood) => {
-  const pets = await Pet.find();
-  return pets
-    .filter((pet) => getMood(pet.createdAt) === mood)
-    .map((p) => ({ ...p.toObject(), mood }));
-};

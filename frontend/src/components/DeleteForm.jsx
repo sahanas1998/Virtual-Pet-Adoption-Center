@@ -6,6 +6,7 @@ function DeleteForm({ petId, onClose, onDeleted }) {
     try {
       await deletePet(petId);
       if (onDeleted) onDeleted(); // e.g., to refresh the pet list
+      window.location.reload();
       onClose(); // close modal
     } catch (error) {
       console.error("Error deleting pet:", error);

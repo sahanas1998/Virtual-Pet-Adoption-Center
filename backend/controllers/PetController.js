@@ -41,20 +41,10 @@ exports.updatePet = async (req, res) => {
   }
 };
 
-
-
-exports.adoptPet = async (req, res) => {
-  const adopted = await PetService.adoptPet(req.params.id);
-  res.json(adopted);
-};
-
 exports.deletePet = async (req, res) => {
   await PetService.deletePet(req.params.id);
   res.json({ message: "Pet deleted" });
 };
 
-exports.filterByMood = async (req, res) => {
-  const pets = await PetService.filterByMood(req.query.mood);
-  res.json(pets);
-};
+
 

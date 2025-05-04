@@ -82,6 +82,7 @@ function UpdateForm({ onClose, petId }) {
 
       const response = await updatePet(petId, petData);
       console.log("Pet created successfully:", response.data);
+      window.location.reload();
       onClose(); // Close form on success
     } catch (error) {
       console.error("Error creating pet:", error);
