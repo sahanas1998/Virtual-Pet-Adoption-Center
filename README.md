@@ -22,9 +22,6 @@ cd backend
 npm install
 node server.js
 
-## Netlify Link
-
-<https://jspet.netlify.app/>
 
 
 
