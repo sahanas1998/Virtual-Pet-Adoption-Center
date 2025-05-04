@@ -49,45 +49,45 @@ function UpdateForm({ onClose, petId }) {
     return errs;
   };
 
-   const handleSubmit = async (e) => {
-     e.preventDefault();
-     const errs = validate();
-     if (Object.keys(errs).length > 0) {
-       setErrors(errs);
-       return;
-     }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const errs = validate();
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      return;
+    }
 
-     const form = new FormData();
-     for (let key in formData) {
-       if (formData[key] !== null) {
-         form.append(key, formData[key]);
-       }
-     }
+    const form = new FormData();
+    for (let key in formData) {
+      if (formData[key] !== null) {
+        form.append(key, formData[key]);
+      }
+    }
 
-     try {
-           // Prepare data for backend
-           const petData = new FormData();
-           petData.append("name", formData.name);
-           petData.append("species", formData.species);
-           petData.append("age", formData.age);
-           petData.append("personality", formData.personality);
-           petData.append("mood", formData.mood);
-           petData.append("adopted", formData.adopted);
-           if (formData.adopted && formData.adoption_date) {
-             petData.append("adoption_date", formData.adoption_date);
-           }
-           if (formData.image) {
-             petData.append("image", formData.image);
-           }
-     
-           const response = await updatePet(petId, petData);
-           console.log("Pet created successfully:", response.data);
-           onClose(); // Close form on success
-         } catch (error) {
-           console.error("Error creating pet:", error);
-           alert("Something went wrong while submitting the form.");
-         }
-   };
+    try {
+      // Prepare data for backend
+      const petData = new FormData();
+      petData.append("name", formData.name);
+      petData.append("species", formData.species);
+      petData.append("age", formData.age);
+      petData.append("personality", formData.personality);
+      petData.append("mood", formData.mood);
+      petData.append("adopted", formData.adopted);
+      if (formData.adopted && formData.adoption_date) {
+        petData.append("adoption_date", formData.adoption_date);
+      }
+      if (formData.image) {
+        petData.append("image", formData.image);
+      }
+
+      const response = await updatePet(petId, petData);
+      console.log("Pet created successfully:", response.data);
+      onClose(); // Close form on success
+    } catch (error) {
+      console.error("Error creating pet:", error);
+      alert("Something went wrong while submitting the form.");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -188,7 +188,7 @@ function UpdateForm({ onClose, petId }) {
         </div>
 
         {/* Adopted (Boolean) */}
-        <div className="flex flex-col md:gap-[10px] gap-[8px]">
+        {/* <div className="flex flex-col md:gap-[10px] gap-[8px]">
           <label className="md:text-[20px] text-[14px] font-semibold">
             Has Been Adopted?
           </label>
@@ -223,12 +223,12 @@ function UpdateForm({ onClose, petId }) {
                 }
                 className="border rounded border-black md:py-3 py-1 px-2"
               />
-              {/* {errors.adoption_date && (
+              {errors.adoption_date && (
                 <p className="text-red-600 text-sm">{errors.adoption_date}</p>
-              )} */}
+              )}
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* Upload Image */}
         <div className="flex flex-col  md:gap-[10px] gap-[4px]">
@@ -264,6 +264,5 @@ function UpdateForm({ onClose, petId }) {
     </form>
   );
 }
-
 
 export default UpdateForm;
