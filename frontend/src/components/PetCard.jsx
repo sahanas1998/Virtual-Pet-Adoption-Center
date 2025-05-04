@@ -22,7 +22,7 @@ function PetCard({
   const [viewPet, setViewPet] = useState(false);
   return (
     <>
-      <div className="cursor-pointer transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg p-4">
+      <div className="cursor-pointer transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg">
         <div className="bg-black border border-[#FF5500] rounded-lg text-white">
           <div className="flex flex-col">
             <div className="relative">
