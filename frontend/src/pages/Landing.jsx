@@ -30,7 +30,7 @@ function Landing() {
     <div className="py-[40px] lg:px-[24px] px-[16px] bg-black text-white">
       <div className="container mx-auto">
         <div className="flex flex-col gap-[20px]">
-          <div className="flex justify-between items-center">
+          <div className="flex md:flex-row flex-col gap-[12px] justify-between items-center">
             <h3 className="text-[32px] font-bold">Pets Details</h3>
             <select
               className="border border-[#FF5500] text-[#FF5500] rounded bg-black p-4 w-[300px] focus:border-[#FF5500] focus:outline-none active:border-[#FF5500]"
