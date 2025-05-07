@@ -26,13 +26,13 @@ exports.updatePet = async (req, res) => {
     const { id } = req.params;
     const updateData = { ...req.body };
 
-    // If an image is uploaded, include it in the update
     if (req.file) {
-      updateData.imagePath = req.file.path;
+      updateData.image = req.file.filename;
     }
 
     const updated = await PetService.updatePet(id, updateData);
     res.status(200).json(updated);
+    console.log("Updata Image", updateData.image);
   } catch (error) {
     console.error("Error updating pet:", error);
     res
