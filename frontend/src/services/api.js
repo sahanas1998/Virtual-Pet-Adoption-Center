@@ -6,6 +6,5 @@ export const getPets = () => API.get("/");
 export const getPet = (id) => API.get(`/${id}`);
 export const createPet = (pet) => API.post("/", pet);
 export const updatePet = (id, pet) => API.put(`/${id}`, pet);
-export const adoptPet = (id) => API.patch(`/${id}/adopt`);
 export const deletePet = (id) => API.delete(`/${id}`);
 export const filterByMood = (mood) => API.get(`/filter?mood=${mood}`);
